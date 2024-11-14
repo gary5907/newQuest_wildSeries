@@ -9,10 +9,12 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 
 // Import additional components for new routes
-// Try creating these components in the "pages" folder
 
-// import About from "./pages/About";
-// import Contact from "./pages/Contact";
+import CategoryDetail from "./pages/CategoryDetail";
+import CategoryEdit from "./pages/CategoryEdit";
+import CategoryIndex from "./pages/CategoryIndex";
+import CategoryNew from "./pages/CategoryNew";
+import ProgramIndex from "./pages/ProgramIndex";
 
 /* ************************************************************************* */
 
@@ -22,8 +24,35 @@ const router = createBrowserRouter([
   {
     path: "/", // The root path
     element: <App />, // Renders the App component for the home page
+    children: [
+      {
+        path: "/categories",
+        element: <CategoryIndex />,
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/api/categories`),
+      },
+      {
+        path: "/categories/new",
+        element: <CategoryNew />,
+      },
+      {
+        path: "/categories/:id",
+        element: <CategoryDetail />,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/api/categories/${params.id}`),
+      },
+      {
+        path: "/categories/:id/edit",
+        element: <CategoryEdit />,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/api/categories/${params.id}`),
+      },
+      {
+        path: "/programs",
+        element: <ProgramIndex />,
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/api/programs`),
+      },
+    ],
   },
-  // Try adding a new route! For example, "/about" with an About component
 ]);
 
 /* ************************************************************************* */
@@ -38,31 +67,30 @@ if (rootElement == null) {
 createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>
+  </StrictMode>,
 );
 
 /**
  * Helpful Notes:
- * 
+ *
  * 1. Adding More Routes:
  *    To add more pages to your app, first create a new component (e.g., About.tsx).
  *    Then, import that component above like this:
- * 
+ *
  *    import About from "./pages/About";
- * 
+ *
  *    Add a new route to the router:
- * 
+ *
  *      {
  *        path: "/about",
  *        element: <About />,  // Renders the About component
  *      }
- * 
+ *
  * 2. Try Nested Routes:
  *    For more complex applications, you can nest routes. This lets you have sub-pages within a main page.
  *    Documentation: https://reactrouter.com/en/main/start/tutorial#nested-routes
- * 
+ *
  * 3. Experiment with Dynamic Routes:
  *    You can create routes that take parameters (e.g., /users/:id).
  *    Documentation: https://reactrouter.com/en/main/start/tutorial#url-params-in-loaders
  */
-
