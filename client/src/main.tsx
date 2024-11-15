@@ -28,7 +28,6 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: <CategoryIndex />,
-        loader: () => fetch(`${import.meta.env.VITE_API_URL}/api/categories`),
       },
       {
         path: "/categories/new",
@@ -37,14 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/categories/:id",
         element: <CategoryDetail />,
-        loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/api/categories/${params.id}`),
       },
       {
         path: "/categories/:id/edit",
         element: <CategoryEdit />,
-        loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/api/categories/${params.id}`),
       },
       {
         path: "/programs",

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import CategoryForm from "../components/CategoryForm";
 
 function CategoryNew() {
