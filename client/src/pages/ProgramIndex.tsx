@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type Program = {
   id: number;
@@ -6,7 +6,15 @@ type Program = {
 };
 
 function ProgramIndex() {
-  const programs = useLoaderData() as Program[];
+  const [programs, setPrograms] = useState([] as Program[]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/programs`)
+      .then((response) => response.json())
+      .then((data: Program[]) => {
+        setPrograms(data);
+      });
+  }, []);
 
   return (
     <ul>

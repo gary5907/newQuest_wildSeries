@@ -1,4 +1,5 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 type Category = {
   id: number;
@@ -6,7 +7,15 @@ type Category = {
 };
 
 function CategoryIndex() {
-  const categories = useLoaderData() as Category[];
+  const [categories, setCategories] = useState([] as Category[]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
+      .then((response) => response.json())
+      .then((data: Category[]) => {
+        setCategories(data);
+      });
+  }, []);
 
   return (
     <>
