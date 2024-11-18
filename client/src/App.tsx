@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import "./App.css";
 
@@ -6,7 +6,9 @@ function App() {
   return (
     <>
       <header>
-        <h1 className="logo">JS Monorepo</h1>
+        <Link to="/">
+          <h1 className="logo">Wild Series</h1>
+        </Link>
       </header>
 
       <nav className="navbar">
