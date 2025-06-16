@@ -1,5 +1,6 @@
 // Import access to data
 
+import { clear } from "node:console";
 import categoryRepository from "./categoryRepository";
 
 // Declare the actions
@@ -94,6 +95,25 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
+const validate: RequestHandler = (req, res, next) => {
+  type ValidationError = {
+    field: string;
+    message: string;
+  };
+
+  const errors: ValidationError[] = [];
+
+  const { name } = req.body;
+
+  // put your validation rules here
+
+  if (errors.length === 0) {
+    next();
+  } else {
+    res.status(400).json({ validationErrors: errors });
+  }
+};
+
 // Export them to import them somewhere else
 
-export default { browse, read, edit, add, destroy };
+export default { browse, read, edit, add, destroy, validate };

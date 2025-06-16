@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 type Program = {
   id: number;
@@ -19,8 +20,11 @@ function ProgramIndex() {
   return (
     <ul>
       {programs.map((program) => (
-        <li key={program.id}>{program.title}</li>
+        <li key={program.id}>
+          <NavLink to={`/programs/${program.id}`}>{program.title}</NavLink>
+        </li>
       ))}
+      <NavLink to={"/programs/new"}>Ajouter</NavLink>
     </ul>
   );
 }
